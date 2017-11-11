@@ -55,7 +55,8 @@ void FindAverageValues(eprocess_type proc_type, double** matrix, const size_t nu
 	{
 	case eprocess_type::by_rows:
 	{
-								   for (size_t i = 0; i < numb_rows; ++i)
+								   cilk::reducer_opadd<double>sum(0.0);
+								   cilk_for (size_t i = 0; i < numb_rows; ++i)
 								   {
 									   double sum(0.0);
 									   for (size_t j = 0; j < numb_cols; ++j)
@@ -68,7 +69,8 @@ void FindAverageValues(eprocess_type proc_type, double** matrix, const size_t nu
 	}
 	case eprocess_type::by_cols:
 	{
-								   for(size_t j = 0; j < numb_cols; ++j)
+								   cilk::reducer_opadd<double>sum(0.0);
+								   cilk_for(size_t j = 0; j < numb_cols; ++j)
 								   {
 									   double sum(0.0);
 									   for (size_t i = 0; i < numb_rows; ++i)
